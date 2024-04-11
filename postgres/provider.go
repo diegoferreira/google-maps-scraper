@@ -83,11 +83,10 @@ func (p *provider) Jobs(ctx context.Context) (<-chan scrapemate.IJob, <-chan err
 
 				buf.Write(payload)
 
-				dec := gob.NewDecoder(&buf)
+				//dec := gob.NewDecoder(&buf)
 
 				var job scrapemate.IJob
 
-								var job scrapemate.IJob
 
 				outc <- job
 			}
@@ -143,9 +142,6 @@ func (p *provider) Push(ctx context.Context, job scrapemate.IJob) error {
 	default:
 		return errors.New("invalid job type")
 	}
-
-
-
 
 	_, err := p.db.ExecContext(ctx, q,
 		job.GetID(), job.GetPriority(), payloadType, buf.Bytes(), time.Now().UTC(), statusNew,
