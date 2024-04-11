@@ -243,7 +243,7 @@ type arguments struct {
 	produceOnly              bool
 	exitOnInactivityDuration time.Duration
 	email                    bool
-	idjob			 int
+	idjob                    int
 }
 
 func parseArgs() (args arguments) {
