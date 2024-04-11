@@ -162,6 +162,8 @@ func (e *Entry) CsvHeaders() []string {
 		"idjob",
 	}
 }
+   job.idjob = idjob
+
 
 func (e *Entry) CsvRow() []string {
 	return []string{
