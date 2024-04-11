@@ -7,6 +7,10 @@ import (
 	"strings"
 )
 
+type idjob struct {
+	idjob int `json:"idjob"`
+}
+
 type Image struct {
 	Title string `json:"title"`
 	Image string `json:"image"`
@@ -87,6 +91,7 @@ type Entry struct {
 	About            []About                `json:"about"`
 	UserReviews      []Review               `json:"user_reviews"`
 	Emails           []string               `json:"emails"`
+	idjob            int                    `json:"idjob"`
 }
 
 func (e *Entry) IsWebsiteValidForEmail() bool {
@@ -154,6 +159,7 @@ func (e *Entry) CsvHeaders() []string {
 		"about",
 		"user_reviews",
 		"emails",
+		"idjob",
 	}
 }
 
@@ -190,6 +196,7 @@ func (e *Entry) CsvRow() []string {
 		stringify(e.About),
 		stringify(e.UserReviews),
 		stringSliceToString(e.Emails),
+		stringify(e.idjob),
 	}
 }
 
