@@ -243,12 +243,15 @@ type arguments struct {
 	produceOnly              bool
 	exitOnInactivityDuration time.Duration
 	email                    bool
+	idjob			 int
 }
 
 func parseArgs() (args arguments) {
 	const (
 		defaultDepth      = 10
 		defaultCPUDivider = 2
+		defaultidjob		  = 0
+		
 	)
 
 	defaultConcurency := runtime.NumCPU() / defaultCPUDivider
@@ -268,6 +271,8 @@ func parseArgs() (args arguments) {
 	flag.DurationVar(&args.exitOnInactivityDuration, "exit-on-inactivity", 0, "program exits after this duration of inactivity(example value '5m')")
 	flag.BoolVar(&args.json, "json", false, "Use this to produce a json file instead of csv (not available when using db)")
 	flag.BoolVar(&args.email, "email", false, "Use this to extract emails from the websites")
+	flag.IntVar(&args.idjob, "idjob", defaultidjob, "id do Job")
+	
 
 	flag.Parse()
 
