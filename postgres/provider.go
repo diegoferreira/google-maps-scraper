@@ -87,31 +87,7 @@ func (p *provider) Jobs(ctx context.Context) (<-chan scrapemate.IJob, <-chan err
 
 				var job scrapemate.IJob
 
-				if payloadType == "search" {
-					j := new(gmaps.GmapJob)
-
-					if err := dec.Decode(j); err != nil {
-						errc <- err
-
-						return
-					}
-
-					job = j
-				} else if payloadType == "place" {
-					j := new(gmaps.PlaceJob)
-
-					if err := dec.Decode(&j); err != nil {
-						errc <- err
-
-						return
-					}
-
-					job = j
-				} else {
-					errc <- errors.New("invalid payload type")
-
-					return
-				}
+								var job scrapemate.IJob
 
 				outc <- job
 			}
@@ -140,6 +116,14 @@ func (p *provider) Push(ctx context.Context, job scrapemate.IJob) error {
 
 	var buf bytes.Buffer
 	enc := json.NewEncoder(&buf)
+
+	if err := enc.Encode(job); err != nil {
+	    return err
+	}
+	
+	_, err := p.db.ExecContext(ctx, q,
+	    job.GetID(), job.GetPriority(), payloadType, buf.String(), time.Now().UTC(), statusNew,
+	)
 
 	var payloadType string
 
