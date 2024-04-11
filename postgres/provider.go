@@ -127,42 +127,25 @@ func (p *provider) Push(ctx context.Context, job scrapemate.IJob) error {
 
 	var payloadType string
 
-//	switch j := job.(type) {
-//	case *gmaps.GmapJob:
-//		payloadType = "search"
-//
-//		if err := enc.Encode(j); err != nil {
-//			return err
-//		}
-//	case *gmaps.PlaceJob:
-//		payloadType = "place"
-//
-//		if err := enc.Encode(j); err != nil {
-//			return err
-//		}
-//	default:
-//		return errors.New("invalid job type")
-//	}
+	switch j := job.(type) {
+	case *gmaps.GmapJob:
+		payloadType = "search"
+
+		if err := enc.Encode(j); err != nil {
+			return err
+/		}
+	case *gmaps.PlaceJob:
+		payloadType = "place"
+
+		if err := enc.Encode(j); err != nil {
+			return err
+		}
+	default:
+		return errors.New("invalid job type")
+	}
 
 
-	if payloadType == "search" {
-    j := new(gmaps.GmapJob)
-    if err := json.NewDecoder(bytes.NewReader(payload)).Decode(j); err != nil {
-        errc <- err
-        return
-    }
-    job = j
-} else if payloadType == "place" {
-    j := new(gmaps.PlaceJob)
-    if err := json.NewDecoder(bytes.NewReader(payload)).Decode(j); err != nil {
-        errc <- err
-        return
-    }
-    job = j
-} else {
-    errc <- errors.New("invalid payload type")
-    return
-}
+
 
 	_, err := p.db.ExecContext(ctx, q,
 		job.GetID(), job.GetPriority(), payloadType, buf.Bytes(), time.Now().UTC(), statusNew,
