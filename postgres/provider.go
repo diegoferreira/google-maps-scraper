@@ -115,15 +115,13 @@ func (p *provider) Push(ctx context.Context, job scrapemate.IJob) error {
 
 	var buf bytes.Buffer
 	enc := json.NewEncoder(&buf)
-
+var payloadType string
+	
 	if err := enc.Encode(job); err != nil {
 	    return err
 	}
 		var payloadType string
-	_, err := p.db.ExecContext(ctx, q,
-	    job.GetID(), job.GetPriority(), payloadType, buf.String(), time.Now().UTC(), statusNew,
-	)
-
+	
 
 
 	switch j := job.(type) {
