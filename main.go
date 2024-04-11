@@ -250,8 +250,7 @@ func parseArgs() (args arguments) {
 	const (
 		defaultDepth      = 10
 		defaultCPUDivider = 2
-		defaultidjob		  = 0
-		
+		defaultidjob      = 0
 	)
 
 	defaultConcurency := runtime.NumCPU() / defaultCPUDivider
@@ -272,7 +271,6 @@ func parseArgs() (args arguments) {
 	flag.BoolVar(&args.json, "json", false, "Use this to produce a json file instead of csv (not available when using db)")
 	flag.BoolVar(&args.email, "email", false, "Use this to extract emails from the websites")
 	flag.IntVar(&args.idjob, "idjob", defaultidjob, "id do Job")
-	
 
 	flag.Parse()
 
