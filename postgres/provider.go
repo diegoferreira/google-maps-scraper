@@ -133,7 +133,7 @@ func (p *provider) Push(ctx context.Context, job scrapemate.IJob) error {
 
 		if err := enc.Encode(j); err != nil {
 			return err
-/		}
+		}
 	case *gmaps.PlaceJob:
 		payloadType = "place"
 
