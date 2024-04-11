@@ -119,12 +119,12 @@ func (p *provider) Push(ctx context.Context, job scrapemate.IJob) error {
 	if err := enc.Encode(job); err != nil {
 	    return err
 	}
-	
+		var payloadType string
 	_, err := p.db.ExecContext(ctx, q,
 	    job.GetID(), job.GetPriority(), payloadType, buf.String(), time.Now().UTC(), statusNew,
 	)
 
-	var payloadType string
+
 
 	switch j := job.(type) {
 	case *gmaps.GmapJob:
