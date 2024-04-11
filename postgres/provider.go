@@ -147,6 +147,7 @@ func (p *provider) Push(ctx context.Context, job scrapemate.IJob) error {
 		job.GetID(), job.GetPriority(), payloadType, buf.Bytes(), time.Now().UTC(), statusNew,
 	)
 
+
 	return err
 }
 
