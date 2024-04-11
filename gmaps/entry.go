@@ -162,7 +162,6 @@ func (e *Entry) CsvHeaders() []string {
 		"idjob",
 	}
 }
-   job.idjob = idjob
 
 
 func (e *Entry) CsvRow() []string {
@@ -211,7 +210,7 @@ func EntryFromJSON(raw []byte) (entry Entry, err error) {
 			return
 		}
 	}()
-
+        job.idjob = idjob
 	var jd []any
 	if err := json.Unmarshal(raw, &jd); err != nil {
 		return entry, err
