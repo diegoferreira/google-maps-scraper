@@ -120,7 +120,7 @@ var payloadType string
 	if err := enc.Encode(job); err != nil {
 	    return err
 	}
-		var payloadType string
+
 	
 
 
